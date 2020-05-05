@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="迭代map 当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从性能方面优化代码">
+<meta property="og:url" content="http://yoursite.com/2020/05/03/%E4%BB%8E%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="如是">
+<meta property="og:description" content="迭代map 当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-03T11:48:45.000Z">
+<meta property="article:modified_time" content="2020-05-05T11:32:52.235Z">
+<meta property="article:author" content="冰雪风云雷">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/03/%E4%BB%8E%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从性能方面优化代码 | 如是</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">如是</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录学习的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/%E4%BB%8E%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/timg.jpg">
+      <meta itemprop="name" content="冰雪风云雷">
+      <meta itemprop="description" content="不要让自己停下脚步！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如是">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从性能方面优化代码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-03 19:48:45" itemprop="dateCreated datePublished" datetime="2020-05-03T19:48:45+08:00">2020-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-05 19:32:52" itemprop="dateModified" datetime="2020-05-05T19:32:52+08:00">2020-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">代码优化</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="迭代map"><a href="#迭代map" class="headerlink" title="迭代map"></a>迭代map</h3><ul>
+<li><p>当循环中只需要 Map 的主键时，迭代 keySet() 是正确的。但是，当需要主键和取值时，迭代 entrySet() 才是更高效的做法，比先迭代 keySet() 后再去 get 取值性能更佳。</p>
+<a id="more"></a></li>
+<li><p>反例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; map = ...;</span><br><span class="line"><span class="keyword">for</span> (String key : map.keySet()) &#123;</span><br><span class="line">    String value = map.get(key);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>正例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; map = ...;</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">    String key = entry.getKey();</span><br><span class="line">    String value = entry.getValue();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="集合判空"><a href="#集合判空" class="headerlink" title="集合判空"></a>集合判空</h3><ul>
+<li><p>使用 Collection.size() 来检测空逻辑上没有问题，但是使用 Collection.isEmpty()使得代码更易读，并且可以获得更好的性能。任何 Collection.isEmpty() 实现的时间复杂度都是 O(1) ，但是某些 Collection.size() 实现的时间复杂度可能是 O(n) 。</p>
+</li>
+<li><p><strong>反例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (collection.size() == <span class="number">0</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>正例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (collection != <span class="keyword">null</span> &amp;&amp; collection.isEmpty()) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要检测null,可采用org.springframework.util.CollectionUtils包下的CollectionUtils.isEmpty(collection)和CollectionUtils.isNotEmpty(collection)。</p>
+</li>
+</ul>
+<h3 id="频繁调用-Collection-contains-方法请使用-Set"><a href="#频繁调用-Collection-contains-方法请使用-Set" class="headerlink" title="频繁调用 Collection.contains 方法请使用 Set"></a>频繁调用 Collection.contains 方法请使用 Set</h3><ul>
+<li>在 java 集合类库中，List 的 contains 方法普遍时间复杂度是 O(n) ，如果在代码中需要频繁调用 contains 方法查找数据，可以先将 list 转换成 HashSet 实现，将 O(n) 的时间复杂度降为 O(1) 。</li>
+</ul>
+<p><strong>反例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = otherService.getList();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    <span class="comment">// 时间复杂度O(n)</span></span><br><span class="line">    list.contains(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>正例：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; list = otherService.getList();</span><br><span class="line">Set&lt;Integer&gt; set = <span class="keyword">new</span> HashSet(list);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= Integer.MAX_VALUE; i++) &#123;</span><br><span class="line">    <span class="comment">// 时间复杂度O(1)</span></span><br><span class="line">    set.contains(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建容器时指定初始值"><a href="#创建容器时指定初始值" class="headerlink" title="创建容器时指定初始值"></a>创建容器时指定初始值</h3><ul>
+<li><p>比如ArrayList、LinkedList、StringBuilder、StringBuffer、HashMap、HasSet等等</p>
+<p>尽量根据数据大小指定初始值，避免频繁扩容导致性能问题。</p>
+</li>
+<li><p>StringBuilder() //默认分配16个字符空间</p>
+</li>
+<li><p>HasMap() //默认大小为16，n/0.75向上取整为m，然后初始容量设置为大于m的最小的2的幂次方的那个数。</p>
+</li>
+<li><p>ArrayList() //默认大小为10</p>
+</li>
+<li><p>如果集合中存储了大量的元素，并且集合已经使用完毕，那么尽量调用clear方法来及时的释放空间。如果集合不会重复使用，那么将集合也设置为null将内存一并释放。这样有助于gc能更快完成清除内存的工作。</p>
+</li>
+</ul>
+<h3 id="乘法和除法使用移位操作"><a href="#乘法和除法使用移位操作" class="headerlink" title="乘法和除法使用移位操作"></a>乘法和除法使用移位操作</h3><ul>
+<li><p>用移位操作符可以极大地提高性能，因为在计算机底层，对位的操作是最方便、最快的·</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = val * <span class="number">8</span>; b = val / <span class="number">2</span></span><br><span class="line"><span class="comment">//修改为：    </span></span><br><span class="line">a = val &lt;&lt; <span class="number">3</span>; b = val &gt;&gt; <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移位操作虽快，但是可能会使代码不好理解，最好加上注释</p>
+</li>
+</ul>
+<h3 id="关于RandomAccess接口"><a href="#关于RandomAccess接口" class="headerlink" title="关于RandomAccess接口"></a>关于RandomAccess接口</h3><ul>
+<li><p>查看源码实际上 <code>RandomAccess</code> 接口中什么都没有定义。所<code>RandomAccess</code> 接口不过是一个标识罢了。标识什么？ 标识实现这个接口的类具有随机访问功能。实现RandomAccess接口的集合比如ArrayList, 应当使用最普通的for循环而不是foreach循环来遍历</p>
+</li>
+<li><p>可以用类似代码做判断：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (list <span class="keyword">instanceof</span> RandomAccess) &#123;</span><br><span class="line">    <span class="comment">//普通for循环</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//Iterator</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结：</p>
+<ul>
+<li>实现了 <code>RandomAccess</code> 接口的list，优先选择普通 for 循环 ，其次 foreach,</li>
+<li>未实现 <code>RandomAccess</code>接口的list，优先选择iterator遍历（foreach遍历底层也是通过iterator实现的），大size的数据，千万不要使用普通for循环</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/03/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%BC%98%E9%9B%85%E7%9A%84Java%E4%BB%A3%E7%A0%81/" rel="prev" title="如何写出优雅的Java代码">
+      <i class="fa fa-chevron-left"></i> 如何写出优雅的Java代码
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代map"><span class="nav-number">1.</span> <span class="nav-text">迭代map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合判空"><span class="nav-number">2.</span> <span class="nav-text">集合判空</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#频繁调用-Collection-contains-方法请使用-Set"><span class="nav-number">3.</span> <span class="nav-text">频繁调用 Collection.contains 方法请使用 Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器时指定初始值"><span class="nav-number">4.</span> <span class="nav-text">创建容器时指定初始值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘法和除法使用移位操作"><span class="nav-number">5.</span> <span class="nav-text">乘法和除法使用移位操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于RandomAccess接口"><span class="nav-number">6.</span> <span class="nav-text">关于RandomAccess接口</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="冰雪风云雷"
+      src="/images/timg.jpg">
+  <p class="site-author-name" itemprop="name">冰雪风云雷</p>
+  <div class="site-description" itemprop="description">不要让自己停下脚步！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wangxueleli" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wangxueleli" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mail.qq.com/cgi-bin/frame_html?sid=c8V0nyqIFdV_XxFP&r=9db43aa9902c27a193ff9e04fff78858" title="E-Mail → https:&#x2F;&#x2F;mail.qq.com&#x2F;cgi-bin&#x2F;frame_html?sid&#x3D;c8V0nyqIFdV_XxFP&amp;r&#x3D;9db43aa9902c27a193ff9e04fff78858" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冰雪风云雷</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

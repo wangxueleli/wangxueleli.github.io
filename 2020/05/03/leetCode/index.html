@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本文主要介绍如何从0搭建自己的个人博客，并部署到github, 包括博客主题，及常用设置，常用命令。">
+  <meta name="description" content="用两个栈实现队列 题目描述： 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo博客搭建及常用命令">
-<meta property="og:url" content="http://yoursite.com/2020/05/01/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:title" content="leetCode">
+<meta property="og:url" content="http://yoursite.com/2020/05/03/leetCode/index.html">
 <meta property="og:site_name" content="如是">
-<meta property="og:description" content="本文主要介绍如何从0搭建自己的个人博客，并部署到github, 包括博客主题，及常用设置，常用命令。">
+<meta property="og:description" content="用两个栈实现队列 题目描述： 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-01T12:55:40.000Z">
-<meta property="article:modified_time" content="2020-05-03T02:05:46.458Z">
+<meta property="article:published_time" content="2020-05-03T10:24:00.000Z">
+<meta property="article:modified_time" content="2020-05-03T11:01:17.946Z">
 <meta property="article:author" content="冰雪风云雷">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="leetCode">
+<meta property="article:tag" content="栈">
+<meta property="article:tag" content="队列">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/05/01/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+<link rel="canonical" href="http://yoursite.com/2020/05/03/leetCode/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>hexo博客搭建及常用命令 | 如是</title>
+  <title>leetCode | 如是</title>
   
 
 
@@ -158,7 +160,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/01/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/03/leetCode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/timg.jpg">
@@ -171,7 +173,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hexo博客搭建及常用命令
+          leetCode
         </h1>
 
         <div class="post-meta">
@@ -180,23 +182,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-01 20:55:40" itemprop="dateCreated datePublished" datetime="2020-05-01T20:55:40+08:00">2020-05-01</time>
+              <time title="创建时间：2020-05-03 18:24:00 / 修改时间：19:01:17" itemprop="dateCreated datePublished" datetime="2020-05-03T18:24:00+08:00">2020-05-03</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-03 10:05:46" itemprop="dateModified" datetime="2020-05-03T10:05:46+08:00">2020-05-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构和算法</span></a>
                 </span>
             </span>
 
@@ -213,7 +209,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>602</span>
+              <span>794</span>
             </span>
 
         </div>
@@ -225,49 +221,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <ul>
-<li><p>本文主要介绍如何从0搭建自己的个人博客，并部署到github, 包括博客主题，及常用设置，常用命令。</p>
-<a id="more"></a>
+        <h4 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a>用两个栈实现队列</h4><ul>
+<li><p><strong>题目描述：</strong></p>
+<p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
+<a id="more"></a></li>
+<li><p><strong>问题分析：</strong></p>
+<p>既然题目给了我们两个栈，我们可以这样考虑当push的时候将元素push进stack1，pop的时候我们先把stack1的元素pop到stack2，然后再对stack2执行pop操作，这样就可以保证是先进先出的。</p>
+</li>
+<li><p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//左程云的《程序员代码面试指南》的答案</span></span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当执行push操作时，将元素添加到stack1</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果两个队列都为空则抛出异常,说明用户没有push进任何元素</span></span><br><span class="line">        <span class="keyword">if</span>(stack1.empty()&amp;&amp;stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Queue is empty!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果stack2不为空直接对stack2执行pop操作，</span></span><br><span class="line">        <span class="keyword">if</span>(stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.empty())&#123;</span><br><span class="line">                <span class="comment">//将stack1的元素按后进先出push进stack2里面</span></span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">          <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<h3 id="确保安装-node-js、npm、git"><a href="#确保安装-node-js、npm、git" class="headerlink" title="确保安装 node.js、npm、git"></a>确保安装 node.js、npm、git</h3><ul>
-<li><p>在cmd命令提示符下，依次验证node  -v，确保是在全局变量下，如无法获取版本信息，请配置环境变量</p>
-</li>
-<li><p>安装cnpm,目的是安装其它插件快一点,可先cnpm -v查看是否已安装</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">npm</span> <span class="selector-tag">install</span> <span class="selector-tag">-g</span> <span class="selector-tag">cnpm--regitry</span><span class="selector-class">.npm</span><span class="selector-class">.taobao</span><span class="selector-class">.org</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>全局安装hexo框架</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-<span class="keyword">cli</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在想放的位置建文件夹，如：blog, cd到该文件下执行</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo init</span></span><br></pre></td></tr></table></figure>
-
-<p>安装完毕，执行hexo  s, 然后访问local host：4000即可查看</p>
-</li>
-</ul>
-<h3 id="更换好看的博客主题"><a href="#更换好看的博客主题" class="headerlink" title="更换好看的博客主题"></a>更换好看的博客主题</h3><ul>
-<li><p>我的是经典的next主题 </p>
-</li>
-<li><p>首先下载主题请百度</p>
-</li>
-<li><p>blog文件夹下的_config.yml找到theme: 更换为下载的主题名</p>
-</li>
-<li><p>cd 到blog下，执行 hexo clean 、hexo  g、 hexo s</p>
-</li>
-<li><p>基于主题的美化和细节设置参考其它文章</p>
-</li>
-</ul>
-<h3 id="推送到github及hexo常用命令"><a href="#推送到github及hexo常用命令" class="headerlink" title="推送到github及hexo常用命令"></a>推送到github及hexo常用命令</h3><ol>
-<li><p>博客只能在本地浏览是没意思的，我们可以推送到github去绑定。</p>
-</li>
-<li><p>新建仓库，名字严格要求:    github名字.github.io,比如我的 wangxueleli.github.io</p>
-</li>
-<li><p>别忘了blog文件夹下的_config.yml，最后一行repo换成github新建项目  的地址</p>
-</li>
-<li><p>推送到github, cd 到blog下，执行 hexo  d 这样都可以远程访问了</p>
-</li>
-</ol>
 
     </div>
 
@@ -287,7 +252,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+              <a href="/tags/leetCode/" rel="tag"><i class="fa fa-tag"></i> leetCode</a>
+              <a href="/tags/%E6%A0%88/" rel="tag"><i class="fa fa-tag"></i> 栈</a>
+              <a href="/tags/%E9%98%9F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 队列</a>
           </div>
 
         
@@ -296,12 +263,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/04/30/%E6%8E%92%E5%BA%8F/" rel="prev" title="排序">
-      <i class="fa fa-chevron-left"></i> 排序
+    <a href="/2020/05/03/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="prev" title="单例模式">
+      <i class="fa fa-chevron-left"></i> 单例模式
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/05/03/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="单例模式">
-      单例模式 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/05/03/%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%BC%98%E9%9B%85%E7%9A%84Java%E4%BB%A3%E7%A0%81/" rel="next" title="如何写出优雅的Java代码">
+      如何写出优雅的Java代码 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -361,7 +328,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#确保安装-node-js、npm、git"><span class="nav-number">1.</span> <span class="nav-text">确保安装 node.js、npm、git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更换好看的博客主题"><span class="nav-number">2.</span> <span class="nav-text">更换好看的博客主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送到github及hexo常用命令"><span class="nav-number">3.</span> <span class="nav-text">推送到github及hexo常用命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用两个栈实现队列"><span class="nav-number">1.</span> <span class="nav-text">用两个栈实现队列</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

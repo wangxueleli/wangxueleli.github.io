@@ -28,11 +28,12 @@
 <meta property="og:description" content="用两个栈实现队列 题目描述： 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-03T10:24:00.000Z">
-<meta property="article:modified_time" content="2020-05-03T11:01:17.946Z">
+<meta property="article:modified_time" content="2020-05-16T06:12:04.973Z">
 <meta property="article:author" content="冰雪风云雷">
 <meta property="article:tag" content="leetCode">
 <meta property="article:tag" content="栈">
 <meta property="article:tag" content="队列">
+<meta property="article:tag" content="链表">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/03/leetCode/">
@@ -182,10 +183,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-03 18:24:00 / 修改时间：19:01:17" itemprop="dateCreated datePublished" datetime="2020-05-03T18:24:00+08:00">2020-05-03</time>
+              <time title="创建时间：2020-05-03 18:24:00" itemprop="dateCreated datePublished" datetime="2020-05-03T18:24:00+08:00">2020-05-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-16 14:12:04" itemprop="dateModified" datetime="2020-05-16T14:12:04+08:00">2020-05-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -209,7 +216,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>794</span>
+              <span>4.6k</span>
             </span>
 
         </div>
@@ -230,6 +237,106 @@
 </li>
 <li><p><strong>代码实现：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//左程云的《程序员代码面试指南》的答案</span></span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当执行push操作时，将元素添加到stack1</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果两个队列都为空则抛出异常,说明用户没有push进任何元素</span></span><br><span class="line">        <span class="keyword">if</span>(stack1.empty()&amp;&amp;stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Queue is empty!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果stack2不为空直接对stack2执行pop操作，</span></span><br><span class="line">        <span class="keyword">if</span>(stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack1.empty())&#123;</span><br><span class="line">                <span class="comment">//将stack1的元素按后进先出push进stack2里面</span></span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">          <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h4 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h4><ul>
+<li><p><strong>题目描述：</strong></p>
+<p>给定一个链表判断是否有环</p>
+</li>
+<li><p><strong>问题分析：</strong></p>
+<p>可用快慢指针依次遍历，如果一个链表有环，快指针会追上慢指针，可判断交点是否存在验正是否有环。</p>
+</li>
+<li><p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast!=<span class="keyword">null</span> &amp;&amp; fast.next !=<span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            <span class="keyword">if</span>(fast == slow) &#123;</span><br><span class="line">                 <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h4><ul>
+<li><p><strong>题目描述：</strong></p>
+<p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
+</li>
+<li><p><strong>题目分析：</strong>一遍哈希表</p>
+</li>
+<li><p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(target - nums[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, map.get(target - nums[i])&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h4><ul>
+<li><p><strong>题目描述：</strong></p>
+<p>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</p>
+<p>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br>输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</p>
+</li>
+<li><p><strong>题目分析：</strong></p>
+<p>利用递归的压栈和出栈，</p>
+</li>
+<li><p><strong>代码实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode temp = head.next;</span><br><span class="line">        ListNode newNode = reverseList(head.next);</span><br><span class="line">        temp.next = head;</span><br><span class="line">        head.next = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">return</span> newNode; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="链表的中间节点"><a href="#链表的中间节点" class="headerlink" title="链表的中间节点"></a>链表的中间节点</h4><ul>
+<li><p>题目描述：</p>
+<p>给定一个带有头结点 <code>head</code> 的非空单链表，返回链表的中间结点。</p>
+<p>如果有两个中间结点，则返回第二个中间结点。</p>
+</li>
+<li><p>题目分析：</p>
+<p>利用快慢指针的特性，快指针遍历速度是慢指针的2倍，快指针遍历完时，慢指针走了一半，此时慢指针所在节点为中间节点</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        <span class="keyword">while</span> (fast !=<span class="keyword">null</span> &amp;&amp; fast.next !=<span class="keyword">null</span>) &#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="数组中数字出现的次数"><a href="#数组中数字出现的次数" class="headerlink" title="数组中数字出现的次数"></a>数组中数字出现的次数</h4><ul>
+<li><p>题目描述：</p>
+<p>一个整型数组 <code>nums</code> 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。</p>
+</li>
+<li><p>题目分析：</p>
+<p>相同的数字异或结果为0，先全员异或得到不同的是两个不同数字异或的结果。找到该结果任意一位为1的位，根据这一位对所有数字分组，然后在组内异或操作即可。</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] singleNumbers(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="comment">//所有数字异或结果</span></span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>; </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) &#123;</span><br><span class="line">            k^=n;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//计算含有位为1的数</span></span><br><span class="line">        <span class="keyword">int</span> mask = <span class="number">1</span>; </span><br><span class="line">        <span class="keyword">while</span>((k &amp; mask) == <span class="number">0</span> ) &#123; </span><br><span class="line">            mask&lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     <span class="comment">//分组</span></span><br><span class="line">        <span class="keyword">int</span> a=<span class="number">0</span>,b=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> n:nums) &#123;  </span><br><span class="line">            <span class="keyword">if</span>((n &amp; mask) == <span class="number">0</span>) &#123;</span><br><span class="line">                a ^= n; </span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                b ^= n;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;a,b&#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h4><ul>
+<li><p>题目描述：</p>
+<p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(<span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">3</span>) + (<span class="number">5</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span>)</span><br><span class="line">输出：<span class="number">7</span> -&gt; <span class="number">0</span> -&gt; <span class="number">8</span></span><br><span class="line">原因：<span class="number">342</span> + <span class="number">465</span> = <span class="number">807</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>题目分析：</p>
+<p>将两个链表看成是相同长度的进行遍历，如果一个链表较短则在前面补 00，比如 987 + 23 = 987 + 023 = 1010，每一位计算的同时需要考虑上一位的进位问题，而当前位计算结束后同样需要更新进位值。如果两个链表全部遍历完毕后，进位值为 1，则在新链表最前方添加节点 1。</p>
+<p>小技巧：对于链表问题，返回结果为头结点时，通常需要先初始化一个预先指针 pre，该指针的下一个节点指向真正的头结点head。使用预先指针的目的在于链表初始化时无可用节点值，而且链表构造过程需要指针移动，进而会导致头指针丢失，无法返回结果。</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">       ListNode pre = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">       ListNode p1 = l1, p2 = l2, curr = pre;</span><br><span class="line">       <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">while</span> (p1 != <span class="keyword">null</span> || p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">int</span> x = p1 == <span class="keyword">null</span> ? <span class="number">0</span> : p1.val;</span><br><span class="line">           <span class="keyword">int</span> y = p2 == <span class="keyword">null</span> ? <span class="number">0</span> : p2.val;</span><br><span class="line">           <span class="keyword">int</span> sum = x + y + carry;</span><br><span class="line">           carry = sum / <span class="number">10</span>;</span><br><span class="line">           curr.next = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">           curr = curr.next;</span><br><span class="line">           <span class="keyword">if</span> (p1 != <span class="keyword">null</span>) &#123;</span><br><span class="line">               p1 = p1.next;</span><br><span class="line">           &#125; </span><br><span class="line">           <span class="keyword">if</span> (p2 != <span class="keyword">null</span>) &#123;</span><br><span class="line">               p2 = p2.next;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//此处防止链表尾部有进位</span></span><br><span class="line">           <span class="keyword">if</span> (carry == <span class="number">1</span>) &#123;</span><br><span class="line">               curr.next = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> pre.next;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h4><ul>
+<li><p>问题描述:</p>
+<p>给定一个字符串，请你找出其中不含有重复字符的 最长子串的长度。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">输入: "abcabcbb"</span></span><br><span class="line"><span class="section">输出: 3 </span></span><br><span class="line"><span class="section">解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>题目分析:  </p>
+<p>滑动窗口，其实就是一个队列,比如例题中的 abcabcbb，进入这个队列（窗口）为 abc 满足题目要求，当再进入 a，队列变成了 abca，这时候不满足要求。所以，我们要移动这个队列，剔除a这个元素，从bca开始。</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (s == <span class="keyword">null</span> || s.length()==<span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">int</span> lef = <span class="number">0</span>;<span class="comment">//滑动窗口左下标，i相当于滑动窗口右下标</span></span><br><span class="line">      <span class="keyword">int</span> res = <span class="number">0</span>; <span class="comment">//记录最长字串</span></span><br><span class="line">      <span class="keyword">int</span> n = s.length();</span><br><span class="line">      HashMap&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">          <span class="keyword">if</span> (map.containsKey(s.charAt(i))) &#123;</span><br><span class="line">              <span class="comment">//更新left指针到原来left的的下一位</span></span><br><span class="line">              lef = Math.max(lef, map.get(s.charAt(i)) + <span class="number">1</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//两个作用，一个放元素，一个更新重复元素的索引</span></span><br><span class="line">          map.put(s.charAt(i), i);</span><br><span class="line">          res = Math.max(res, i - lef + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 
 </li>
 </ul>
@@ -255,6 +362,7 @@
               <a href="/tags/leetCode/" rel="tag"><i class="fa fa-tag"></i> leetCode</a>
               <a href="/tags/%E6%A0%88/" rel="tag"><i class="fa fa-tag"></i> 栈</a>
               <a href="/tags/%E9%98%9F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 队列</a>
+              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"><i class="fa fa-tag"></i> 链表</a>
           </div>
 
         
@@ -328,7 +436,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用两个栈实现队列"><span class="nav-number">1.</span> <span class="nav-text">用两个栈实现队列</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用两个栈实现队列"><span class="nav-number">1.</span> <span class="nav-text">用两个栈实现队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环形链表"><span class="nav-number">2.</span> <span class="nav-text">环形链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两数之和"><span class="nav-number">3.</span> <span class="nav-text">两数之和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反转链表"><span class="nav-number">4.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链表的中间节点"><span class="nav-number">5.</span> <span class="nav-text">链表的中间节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组中数字出现的次数"><span class="nav-number">6.</span> <span class="nav-text">数组中数字出现的次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两数相加"><span class="nav-number">7.</span> <span class="nav-text">两数相加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无重复字符的最长子串"><span class="nav-number">8.</span> <span class="nav-text">无重复字符的最长子串</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -357,7 +465,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

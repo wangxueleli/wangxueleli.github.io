@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案 这里用的继承是为了有正确的类型，新的行为来自于组合">
+  <meta name="description" content="子类可以改变父类算法步骤 将完全相同方法放在公共父类，同样方法不同实现定义成父类的抽象方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="装饰者模式">
-<meta property="og:url" content="http://yoursite.com/2020/10/13/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="模板方法模式">
+<meta property="og:url" content="http://yoursite.com/2020/10/14/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="如是">
-<meta property="og:description" content="动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案 这里用的继承是为了有正确的类型，新的行为来自于组合">
+<meta property="og:description" content="子类可以改变父类算法步骤 将完全相同方法放在公共父类，同样方法不同实现定义成父类的抽象方法">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-13T10:51:03.000Z">
-<meta property="article:modified_time" content="2020-10-13T11:36:14.905Z">
+<meta property="article:published_time" content="2020-10-14T15:26:11.000Z">
+<meta property="article:modified_time" content="2020-10-14T15:33:15.231Z">
 <meta property="article:author" content="冰雪风云雷">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/10/13/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+<link rel="canonical" href="http://yoursite.com/2020/10/14/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>装饰者模式 | 如是</title>
+  <title>模板方法模式 | 如是</title>
   
 
 
@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/13/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/14/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/timg.jpg">
@@ -171,7 +171,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          装饰者模式
+          模板方法模式
         </h1>
 
         <div class="post-meta">
@@ -182,7 +182,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-13 18:51:03 / 修改时间：19:36:14" itemprop="dateCreated datePublished" datetime="2020-10-13T18:51:03+08:00">2020-10-13</time>
+              <time title="创建时间：2020-10-14 23:26:11 / 修改时间：23:33:15" itemprop="dateCreated datePublished" datetime="2020-10-14T23:26:11+08:00">2020-10-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -207,7 +207,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.4k</span>
             </span>
 
         </div>
@@ -219,26 +219,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案"><a href="#动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案" class="headerlink" title="动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案"></a>动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案</h4><ul>
-<li>这里用的继承是为了有正确的类型，新的行为来自于组合<a id="more"></a>
-1、抽象类，饮料和调料公共父类</li>
+        <h4 id="子类可以改变父类算法步骤"><a href="#子类可以改变父类算法步骤" class="headerlink" title="子类可以改变父类算法步骤"></a>子类可以改变父类算法步骤</h4><ul>
+<li>将完全相同方法放在公共父类，同样方法不同实现定义成父类的抽象方法<a id="more"></a>
+1、父类</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line">    String description = <span class="string">"Unknown Beverage"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> description;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CaffeineBeverageWithHook</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">prepareRecipe</span><span class="params">()</span> </span>&#123; <span class="comment">//final避免子类覆写</span></span><br><span class="line">        boilWater();</span><br><span class="line">        brew();</span><br><span class="line">        pourInCup();</span><br><span class="line">        <span class="keyword">if</span> (customerWantsCondiments()) &#123;</span><br><span class="line">            addCondiments();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span></span>; <span class="comment">//子类不同实现用抽象方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">boilWater</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Boiling water"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">pourInCup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Pouring into cup"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//沟子，让子类影响抽象类的流程</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">customerWantsCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>2、调料的父类,饮料一次是唯一的，调料不唯一</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CondimentDecorator</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tea</span> <span class="keyword">extends</span> <span class="title">CaffeineBeverageWithHook</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Steeping the tea"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Adding Lemon"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">customerWantsCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  <span class="comment">//子类覆写钩子</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>3、饮料-被装饰类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Espresso</span> <span class="keyword">extends</span> <span class="title">Beverage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Espresso</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        description = <span class="string">"Espresso"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1.99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Coffee</span> <span class="keyword">extends</span> <span class="title">CaffeineBeverageWithHook</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">brew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Dripping Coffee through filter"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addCondiments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Adding Sugar and Milk"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>4、调料-装饰类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mocha</span> <span class="keyword">extends</span> <span class="title">CondimentDecorator</span> </span>&#123;</span><br><span class="line">    Beverage beverage;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mocha</span><span class="params">(Beverage beverage)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beverage = beverage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> beverage.getDescription() + <span class="string">", Mocha"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">cost</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="number">20</span> + beverage.cost();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Tea tea = <span class="keyword">new</span> Tea();</span><br><span class="line">        Coffee coffee = <span class="keyword">new</span> Coffee();</span><br><span class="line">        tea.prepareRecipe();</span><br><span class="line">        coffee.prepareRecipe();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>5、测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StarbuzzCoffee</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//打印没有装饰时的饮料</span></span><br><span class="line">        Beverage beverage = <span class="keyword">new</span> Espresso();</span><br><span class="line">        System.out.println(beverage.getDescription()+<span class="string">"$"</span>+beverage.cost());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//打印加上调料后的饮料</span></span><br><span class="line">        beverage = <span class="keyword">new</span> Mocha(beverage);</span><br><span class="line">        System.out.println(beverage.getDescription()+<span class="string">"$"</span>+beverage.cost());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>6、结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Espresso$<span class="number">1.99</span></span><br><span class="line">Espresso, Mocha$<span class="number">2.19</span></span><br></pre></td></tr></table></figure>
+<p>5、结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Boiling water</span><br><span class="line">Steeping the tea</span><br><span class="line">Pouring into cup</span><br><span class="line">Boiling water</span><br><span class="line">Dripping Coffee through filter</span><br><span class="line">Pouring into cup</span><br><span class="line">Adding Sugar and Milk</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -268,13 +265,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/13/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" rel="prev" title="观察者模式">
-      <i class="fa fa-chevron-left"></i> 观察者模式
+    <a href="/2020/10/14/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="prev" title="适配器模式">
+      <i class="fa fa-chevron-left"></i> 适配器模式
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/14/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="next" title="工厂模式">
-      工厂模式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -333,7 +327,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案"><span class="nav-number">1.</span> <span class="nav-text">动态的将责任附加到对象上，若要扩展功能，装饰者提供了比继承更有弹性的替代方案</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#子类可以改变父类算法步骤"><span class="nav-number">1.</span> <span class="nav-text">子类可以改变父类算法步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

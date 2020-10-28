@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="字节跳动 给定长度为m的字符串s1，以及长度为n的字符串s2，问能否在s2中找到长度为m的连续子串，使得这个子串刚好由s1的m个字符组成，顺序无所谓，返回任意一个满足条件的子串的起始位置，不存在返回-1。">
+  <meta name="description" content="1 线程池工具类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试中的算法题目">
-<meta property="og:url" content="http://yoursite.com/2020/05/17/%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:title" content="线程池相关">
+<meta property="og:url" content="http://yoursite.com/2020/10/28/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="如是">
-<meta property="og:description" content="字节跳动 给定长度为m的字符串s1，以及长度为n的字符串s2，问能否在s2中找到长度为m的连续子串，使得这个子串刚好由s1的m个字符组成，顺序无所谓，返回任意一个满足条件的子串的起始位置，不存在返回-1。">
+<meta property="og:description" content="1 线程池工具类">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-17T02:10:39.000Z">
-<meta property="article:modified_time" content="2020-10-12T13:40:00.720Z">
+<meta property="article:published_time" content="2020-10-28T13:29:22.000Z">
+<meta property="article:modified_time" content="2020-10-28T14:29:27.629Z">
 <meta property="article:author" content="冰雪风云雷">
-<meta property="article:tag" content="字节跳动">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/05/17/%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE/">
+<link rel="canonical" href="http://yoursite.com/2020/10/28/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9B%B8%E5%85%B3/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>面试中的算法题目 | 如是</title>
+  <title>线程池相关 | 如是</title>
   
 
 
@@ -158,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/17/%E9%9D%A2%E8%AF%95%E4%B8%AD%E7%9A%84%E7%AE%97%E6%B3%95%E9%A2%98%E7%9B%AE/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/28/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/timg.jpg">
@@ -171,7 +171,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          面试中的算法题目
+          线程池相关
         </h1>
 
         <div class="post-meta">
@@ -180,23 +180,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-17 10:10:39" itemprop="dateCreated datePublished" datetime="2020-05-17T10:10:39+08:00">2020-05-17</time>
+              <time title="创建时间：2020-10-28 21:29:22 / 修改时间：22:29:27" itemprop="dateCreated datePublished" datetime="2020-10-28T21:29:22+08:00">2020-10-28</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 21:40:00" itemprop="dateModified" datetime="2020-10-12T21:40:00+08:00">2020-10-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                  <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">多线程</span></a>
                 </span>
             </span>
 
@@ -213,7 +207,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.3k</span>
             </span>
 
         </div>
@@ -225,16 +219,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="字节跳动"><a href="#字节跳动" class="headerlink" title="字节跳动"></a>字节跳动</h4><ul>
-<li><p>给定长度为m的字符串s1，以及长度为n的字符串s2，问能否在s2中找到长度为m的连续子串，使得这个子串刚好由s1的m个字符组成，顺序无所谓，返回任意一个满足条件的子串的起始位置，不存在返回-1。</p>
-<a id="more"></a></li>
-<li><p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">containStr</span><span class="params">(String s1, String s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] aim = s1.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] str = s2.toCharArray();</span><br><span class="line">        <span class="keyword">int</span>[] count = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">255</span>];  <span class="comment">//共有256个字符</span></span><br><span class="line">        <span class="keyword">int</span> M = aim.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">            count[aim[i]]++; <span class="comment">//统计s1中每个字符数量</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> valid = <span class="number">0</span>;   <span class="comment">//定义无效字符数量</span></span><br><span class="line">        <span class="keyword">int</span> R = <span class="number">0</span>; </span><br><span class="line">       <span class="comment">//第一次[0...M-1]比较</span></span><br><span class="line">        <span class="keyword">for</span> (; R &lt; M; R++) &#123;</span><br><span class="line">            <span class="comment">//如果该字符小于等于0，再减为负数</span></span><br><span class="line">            <span class="keyword">if</span> (count[str[R]]-- &lt;= <span class="number">0</span>) &#123; </span><br><span class="line">                valid++; <span class="comment">//无效加1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (; R &lt; str.length; R++) &#123; <span class="comment">//此时R=M</span></span><br><span class="line">            <span class="comment">//判断[0...M-1]是否满足</span></span><br><span class="line">            <span class="keyword">if</span> (valid == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> R - M; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//R每遍历一次，相当于借M中字符一次</span></span><br><span class="line">            <span class="keyword">if</span> (count[str[R]]-- &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                valid++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//M-R相当于左边还给M一个字符</span></span><br><span class="line">            <span class="keyword">if</span> (count[str[R - M]]++ &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                valid--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="comment">//判断[R-M...R]是否满足条件</span></span><br><span class="line">        <span class="keyword">return</span> valid == <span class="number">0</span> ? R - M : -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="1-线程池工具类"><a href="#1-线程池工具类" class="headerlink" title="1 线程池工具类"></a>1 线程池工具类</h4><a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadFactory threadFactory = <span class="keyword">new</span> ThreadFactoryBuilder()</span><br><span class="line">            .setNameFormat(<span class="string">"sync-data-thread-pool-%d"</span>).build();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_POOL_SIZE = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> QUEUE_CAPACITY = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Long KEEP_ALIVE_TIME = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ExecutorService pool = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">getPool</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (pool == <span class="keyword">null</span> || pool.isTerminated()) &#123;</span><br><span class="line">            pool = createPool();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  pool;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ExecutorService <span class="title">getCurrentPool</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span>  pool;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span></span>&#123;</span><br><span class="line">        pool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ExecutorService <span class="title">createPool</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">                CORE_POOL_SIZE,</span><br><span class="line">                MAX_POOL_SIZE,</span><br><span class="line">                KEEP_ALIVE_TIME,</span><br><span class="line">                TimeUnit.SECONDS,</span><br><span class="line">                <span class="keyword">new</span> LinkedBlockingQueue&lt;&gt;(QUEUE_CAPACITY),</span><br><span class="line">                threadFactory,</span><br><span class="line">                <span class="keyword">new</span> ThreadPoolExecutor.CallerRunsPolicy());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateAllAirport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (String data : list) &#123;</span><br><span class="line">            <span class="comment">// 启动线程</span></span><br><span class="line">            startThread(data);</span><br><span class="line">        &#125;</span><br><span class="line">        ThreadPoolUtils.shutdown();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ThreadPoolUtils.getCurrentPool().isTerminated()) &#123;</span><br><span class="line">              	<span class="comment">//TODO</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>已知一个搜索二叉树后序遍历的数组posArr,请根据posArr，重建出整颗数返回新建树的头节点。</p>
-</li>
-<li><p>代码实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Node <span class="title">proccess</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (L &gt; R) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       Node head = <span class="keyword">new</span> Node(nums[R]);  <span class="comment">//数组最后一个是头节点</span></span><br><span class="line">       <span class="keyword">if</span> (L == R) &#123;</span><br><span class="line">           <span class="keyword">return</span> head;</span><br><span class="line">       &#125;</span><br><span class="line">    	<span class="comment">//当数组左边都大于头节点时，head.left = null;</span></span><br><span class="line">       <span class="keyword">int</span> M = L - <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">int</span> left = L;</span><br><span class="line">       <span class="keyword">int</span> right = R - <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">           <span class="comment">//利用二分，并且求中位数(left+right)/2可能溢出</span></span><br><span class="line">           <span class="keyword">int</span> mid = left + ((right - left) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">           <span class="keyword">if</span> (nums[mid] &lt; nums[R]) &#123;</span><br><span class="line">               M = mid;</span><br><span class="line">               left = mid + <span class="number">1</span>;</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               right = mid - <span class="number">1</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       head.left = proccess(nums, L, M);</span><br><span class="line">       head.right = proccess(nums, M + <span class="number">1</span>, R);</span><br><span class="line">       <span class="keyword">return</span> head;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<li><p>开启线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startUpdateThread</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">        ThreadPoolUtils.getPool().execute(()-&gt;&#123;</span><br><span class="line">           <span class="comment">//TODO</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -257,7 +250,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/" rel="tag"><i class="fa fa-tag"></i> 字节跳动</a>
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           </div>
 
         
@@ -266,12 +259,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/05/03/%E4%BB%8E%E6%80%A7%E8%83%BD%E6%96%B9%E9%9D%A2%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81/" rel="prev" title="从性能方面优化代码">
-      <i class="fa fa-chevron-left"></i> 从性能方面优化代码
+    <a href="/2020/10/20/mysql%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE/" rel="prev" title="mysql优化建议">
+      <i class="fa fa-chevron-left"></i> mysql优化建议
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/05/26/java8%E6%96%B0%E7%89%B9%E6%80%A7/" rel="next" title="java8新特性">
-      java8新特性 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/10/28/LeetCode-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E4%B8%93%E9%A2%98/" rel="next" title="LeetCode-动态规划专题">
+      LeetCode-动态规划专题 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -331,7 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#字节跳动"><span class="nav-number">1.</span> <span class="nav-text">字节跳动</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-线程池工具类"><span class="nav-number">1.</span> <span class="nav-text">1 线程池工具类</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
